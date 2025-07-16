@@ -1,0 +1,92 @@
+1.TwoSum
+
+Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+
+📥 Input:
+nums = [2, 7, 11, 15]
+
+target = 9
+
+📤 Output:
+[0, 1] → Because nums[0] + nums[1] = 2 + 7 = 9
+
+✅ Constraints:
+Exactly one solution exists.
+
+You cannot use the same element twice.
+
+🚶 Step 1: Brute Force
+Try all possible pairs — check every i, j combo and see if nums[i] + nums[j] == target.
+
+🔁 Logic:
+Loop over each element i
+
+For every i, loop over all elements j > i
+
+Check if sum == target
+
+⏱️ Time Complexity: O(n^2)
+🔧 Space: O(1)
+
+
+✅ Java Code: Brute Force
+java
+Copy code
+public class TwoSumBruteForce {
+    public static int[] twoSum(int[] nums, int target) {
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = i + 1; j < nums.length; j++) {
+                if (nums[i] + nums[j] == target) {
+                    return new int[] {i, j};
+                }
+            }
+        }
+        return new int[] {}; // No solution (won't happen as per problem)
+    }
+}
+
+
+🚀 Step 2: Optimal using HashMap
+Think in terms of “Have I seen the number I need?”
+You need target - nums[i], check if it's already in a Map.
+
+💡 Core Idea:
+Iterate through array
+
+For each number num, check if target - num exists in map
+
+If it does → solution found
+
+Else → store num with its index in the map
+
+⏱️ Time: O(n)
+🔧 Space: O(n) for the map
+
+
+✅ Java Code: Optimal HashMap
+
+import java.util.HashMap;
+import java.util.Map;
+
+class TwoSum {
+    public static int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int i=0; i<nums.length; i++) {
+            int complement=target-nums[i];
+            if(map.containsKey(complement)) {
+                return new int[] {map.get(complement), i};
+            }
+            map.put(nums[i], i);
+        }
+        return new int[] {};
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        int[] nums={2,7,11,15};
+        int target=9;
+        
+        int[] result = TwoSum.twoSum(nums, target);
+        System.out.println("Indices: [" +result[0]+", "+result[1]+"]");
+    }
+}
