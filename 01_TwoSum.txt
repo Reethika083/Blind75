@@ -90,3 +90,17 @@ public class Main {
         System.out.println("Indices: [" +result[0]+", "+result[1]+"]");
     }
 }
+
+Pseudocode:
+
+function twoSum(nums, target):
+    create empty map
+
+    for i from 0 to length of nums - 1:
+        complement = target - nums[i]
+        if complement exists in map:
+            return [map[complement], i]
+        map[nums[i]] = i
+
+    return empty array
+
